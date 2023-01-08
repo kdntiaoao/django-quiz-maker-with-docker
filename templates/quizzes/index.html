@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="p-index-quizzes">
+  <div class="p-index-quizzes__inner">
+    <h2 id="table-label" class="p-index-quizzes__heading">クイズ一覧</h2>
+    <div class="p-index-quizzes__content">
+      <div class="p-index-quizzes__list" aria-labelledby="table-label" role="table">
+        <div class="p-index-quizzes__list-header" role="rowgroup">
+          <div class="p-index-quizzes__list-header-inner" role="row">
+            <div class="p-index-quizzes__list-header-username" role="columnheader">ユーザー名</div>
+            <div class="p-index-quizzes__list-header-created-at" role="columnheader">作成日</div>
+            <div class="p-index-quizzes__list-header-statement" role="columnheader">問題</div>
+          </div>
+        </div>
+        {% for quiz in quizzes %}
+        <div class="p-index-quizzes__item" role="row">
+          <a href="{% url 'quizzes:thinking' quiz.id %}" class="p-index-quizzes__item-inner">
+            <div class="p-index-quizzes__username" role="cell">
+              <svg
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewbox="0 0 48 48"
+                class="p-index-quizzes__username-icon"
+              >
+                <path
+                  d="M24 23.95q-3.3 0-5.4-2.1-2.1-2.1-2.1-5.4 0-3.3 2.1-5.4 2.1-2.1 5.4-2.1 3.3 0 5.4 2.1 2.1 2.1 2.1 5.4 0 3.3-2.1 5.4-2.1 2.1-5.4 2.1ZM8 40v-4.7q0-1.9.95-3.25T11.4 30q3.35-1.5 6.425-2.25Q20.9 27 24 27q3.1 0 6.15.775 3.05.775 6.4 2.225 1.55.7 2.5 2.05.95 1.35.95 3.25V40Zm3-3h26v-1.7q0-.8-.475-1.525-.475-.725-1.175-1.075-3.2-1.55-5.85-2.125Q26.85 30 24 30t-5.55.575q-2.7.575-5.85 2.125-.7.35-1.15 1.075Q11 34.5 11 35.3Zm13-16.05q1.95 0 3.225-1.275Q28.5 18.4 28.5 16.45q0-1.95-1.275-3.225Q25.95 11.95 24 11.95q-1.95 0-3.225 1.275Q19.5 14.5 19.5 16.45q0 1.95 1.275 3.225Q22.05 20.95 24 20.95Zm0-4.5ZM24 37Z"
+                />
+              </svg>
+              <span class="p-index-quizzes__username-text">{{ quiz.created_by.username }}</span>
+            </div>
+            <div class="p-index-quizzes__created-at" role="cell">
+              <svg
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewbox="0 0 48 48"
+                class="p-index-quizzes__created-at-icon"
+              >
+                <path
+                  d="m31.35 33.65 2.25-2.25-7.95-8V13.35h-3V24.6ZM24 44q-4.1 0-7.75-1.575-3.65-1.575-6.375-4.3-2.725-2.725-4.3-6.375Q4 28.1 4 24t1.575-7.75q1.575-3.65 4.3-6.375 2.725-2.725 6.375-4.3Q19.9 4 24 4t7.75 1.575q3.65 1.575 6.375 4.3 2.725 2.725 4.3 6.375Q44 19.9 44 24t-1.575 7.75q-1.575 3.65-4.3 6.375-2.725 2.725-6.375 4.3Q28.1 44 24 44Zm0-20Zm0 17q7 0 12-5t5-12q0-7-5-12T24 7q-7 0-12 5T7 24q0 7 5 12t12 5Z"
+                />
+              </svg>
+              <span class="p-index-quizzes__created-at-text">{{ quiz.created_at }}</span>
+            </div>
+            <div class="p-index-quizzes__statement" role="cell">{{ quiz.statement }}</div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="p-index-quizzes__footer">
+        <div class="p-index-quizzes__footer-info">{{ total_count }}問 {{ total_page }}ページ中{{ current_page }}ページ目</div>
+        <div class="p-index-quizzes__pagination">
+          <div class="p-index-quizzes__page-list">
+            {% for _ in ''|center:total_page %}
+              {% if forloop.counter == current_page %}
+              <div class="p-index-quizzes__page-item is-active">{{ forloop.counter }}</div>
+              {% else %}
+              <a
+                href="{% url 'index' %}?current={{ forloop.counter }}"
+                class="p-index-quizzes__page-item"
+              >
+                {{ forloop.counter }}
+              </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

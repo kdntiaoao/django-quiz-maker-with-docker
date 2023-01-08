@@ -1,0 +1,77 @@
+{% extends 'base.html' %} {% block title %}新規登録 | Quiz Maker{% endblock %} {% block main %}
+<div class="p-register-form">
+  <div class="p-register-form__inner">
+    <div class="p-register-form__header">
+      <a href="{% url 'accounts:login' %}" class="p-register-form__heading">ログイン</a>
+      <h2 class="p-register-form__heading is-active">新規登録</h2>
+    </div>
+    <div class="p-register-form__content">
+      <form method="post" class="p-register-form__form">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="p-register-form__error is-active">
+          <div class="p-register-form__error-inner">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewbox="0 0 48 48"
+              class="p-register-form__error-icon"
+              fill="currentColor"
+            >
+              <path
+                d="M24 34q.7 0 1.175-.475.475-.475.475-1.175 0-.7-.475-1.175Q24.7 30.7 24 30.7q-.7 0-1.175.475-.475.475-.475 1.175 0 .7.475 1.175Q23.3 34 24 34Zm-1.35-7.65h3V13.7h-3ZM24 44q-4.1 0-7.75-1.575-3.65-1.575-6.375-4.3-2.725-2.725-4.3-6.375Q4 28.1 4 23.95q0-4.1 1.575-7.75 1.575-3.65 4.3-6.35 2.725-2.7 6.375-4.275Q19.9 4 24.05 4q4.1 0 7.75 1.575 3.65 1.575 6.35 4.275 2.7 2.7 4.275 6.35Q44 19.85 44 24q0 4.1-1.575 7.75-1.575 3.65-4.275 6.375t-6.35 4.3Q28.15 44 24 44Zm.05-3q7.05 0 12-4.975T41 23.95q0-7.05-4.95-12T24 7q-7.05 0-12.025 4.95Q7 16.9 7 24q0 7.05 4.975 12.025Q16.95 41 24.05 41ZM24 24Z"
+              />
+            </svg>
+            <span class="p-register-form__error-text">登録に失敗しました</span>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="p-register-form__field-list">
+          <div class="p-register-form__field-container">
+            <label for="username" class="p-register-form__field-label">ユーザー名</label>
+            <input type="text" name="username" id="username" class="p-register-form__field" />
+            <ul class="p-register-form__field-helper-list">
+              {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                <li class="p-register-form__field-helper-item p-register-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+          <div class="p-register-form__field-container">
+            <label for="password1" class="p-register-form__field-label">パスワード</label>
+            <input type="password" name="password1" id="password1" class="p-register-form__field" />
+            <ul class="p-register-form__field-helper-list">
+              {% if form.password1.errors %}
+                {% for error in form.password1.errors %}
+                <li class="p-register-form__field-helper-item p-register-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+              {% elif form.password1.html_name == 'password1' %}
+                <li class="p-register-form__field-helper-item">パスワードは最低 8 文字以上必要です。</li>
+                <li class="p-register-form__field-helper-item">数字だけのパスワードにはできません。</li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="p-register-form__field-container">
+            <label for="password2" class="p-register-form__field-label">確認用パスワード</label>
+            <input type="password" name="password2" id="password2" class="p-register-form__field" />
+            {% if form.password2.errors %}
+            <ul class="p-register-form__field-helper-list">
+              {% for error in form.password2.errors %}
+              <li class="p-register-form__field-helper-item p-register-form__field-helper-item--error">{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        <div class="p-register-form__submit-btn-container">
+          <button type="submit" class="c-btn-primary c-btn-primary--primary p-register-form__submit-btn">
+            新規登録
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -30,6 +30,12 @@
   $ docker-compose down --rmi all --volumes --remove-orphans
   ```
 
+- superuser の作成
+
+  ```
+  $ docker-compose run web python3 manage.py createsuperuser
+  ```
+
 - アプリの作成
 
   ```
