@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="p-result-quiz">
+  <div class="p-result-quiz__inner">
+    <h2 id="quiz-statement" class="p-result-quiz__statement">
+      {{ quiz.statement }}
+    </h2>
+    <dl class="p-result-quiz__info-list">
+      <div class="p-result-quiz__info-item">
+        <dt class="p-result-quiz__info-title">作成者</dt>
+        <dd class="p-result-quiz__info-data">{{ quiz.created_by.username }}</dd>
+      </div>
+      <div class="p-result-quiz__info-item">
+        <dt class="p-result-quiz__info-title">作成日</dt>
+        <dd class="p-result-quiz__info-data">{{ quiz.created_at }}</dd>
+      </div>
+    </dl>
+    <div class="p-result-quiz__option-list">
+      {% for option in quiz.options %}
+      <div class="p-result-quiz__option-item {{ option.is_correct|yesno:'is-correct,'}}">
+        <input type="checkbox" name="{{ option.name }}" class="p-result-quiz__option-checkbox" {{ option.is_select|yesno:'checked,' }} />
+        <span class="p-result-quiz__option-text">{{ option.text }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="p-result-quiz__submit-btn-container">
+      <a href="{% url 'index' %}" class="c-btn-primary c-btn-primary--outlined p-result-quiz__top-btn"> ホーム </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

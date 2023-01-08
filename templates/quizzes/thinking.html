@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block main %}
+<div class="p-thinking-quiz">
+  <form method="post" class="p-thinking-quiz__inner" aria-labelledby="quiz-statement">
+    {% csrf_token %}
+    <h2 id="quiz-statement" class="p-thinking-quiz__statement">{{ quiz.statement }}</h2>
+    <dl class="p-thinking-quiz__info-list">
+      <div class="p-thinking-quiz__info-item">
+        <dt class="p-thinking-quiz__info-title">作成者</dt>
+        <dd class="p-thinking-quiz__info-data">{{ quiz.created_by.username }}</dd>
+      </div>
+      <div class="p-thinking-quiz__info-item">
+        <dt class="p-thinking-quiz__info-title">作成日</dt>
+        <dd class="p-thinking-quiz__info-data">{{ quiz.created_at }}</dd>
+      </div>
+    </dl>
+    <div class="p-thinking-quiz__option-list">
+      {% for option in quiz.options %}
+      <label for="{{ option.name }}" class="p-thinking-quiz__option-item">
+        <input type="checkbox" name="{{ option.name }}" id="{{ option.name }}" class="p-thinking-quiz__option-checkbox" />
+        <span class="p-thinking-quiz__option-text">{{ option.text }}</span>
+      </label>
+      {% endfor %}
+    </div>
+    <div class="p-thinking-quiz__submit-btn-container">
+      <button type="submit" class="c-btn-primary c-btn-primary--primary p-thinking-quiz__submit-btn">解答</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

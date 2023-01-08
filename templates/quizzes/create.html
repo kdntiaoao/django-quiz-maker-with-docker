@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% block title %}クイズ作成 | Quiz Maker{% endblock %}
+{% block main %}
+<div class="p-create-form">
+  <div class="p-create-form__inner">
+    <h2 id="form-label" class="p-create-form__heading">
+      クイズを作成する
+    </h2>
+    <div class="p-create-form__content">
+      <form
+        method="post"
+        class="p-create-form__form"
+        aria-labelledby="form-label"
+      >
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="p-create-form__error is-active">
+          <div class="p-create-form__error-inner">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewbox="0 0 48 48"
+              class="p-create-form__error-icon"
+              fill="currentColor"
+            >
+              <path
+                d="M24 34q.7 0 1.175-.475.475-.475.475-1.175 0-.7-.475-1.175Q24.7 30.7 24 30.7q-.7 0-1.175.475-.475.475-.475 1.175 0 .7.475 1.175Q23.3 34 24 34Zm-1.35-7.65h3V13.7h-3ZM24 44q-4.1 0-7.75-1.575-3.65-1.575-6.375-4.3-2.725-2.725-4.3-6.375Q4 28.1 4 23.95q0-4.1 1.575-7.75 1.575-3.65 4.3-6.35 2.725-2.7 6.375-4.275Q19.9 4 24.05 4q4.1 0 7.75 1.575 3.65 1.575 6.35 4.275 2.7 2.7 4.275 6.35Q44 19.85 44 24q0 4.1-1.575 7.75-1.575 3.65-4.275 6.375t-6.35 4.3Q28.15 44 24 44Zm.05-3q7.05 0 12-4.975T41 23.95q0-7.05-4.95-12T24 7q-7.05 0-12.025 4.95Q7 16.9 7 24q0 7.05 4.975 12.025Q16.95 41 24.05 41ZM24 24Z"
+              />
+            </svg>
+            <span class="p-create-form__error-text">クイズ作成に失敗しました</span>
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="p-create-form__fieldset-list">
+          <fieldset class="p-create-form__fieldset-item">
+            <label
+              for="statement"
+              class="p-create-form__statement-label"
+              >問題文</label
+            >
+            <textarea
+              name="statement"
+              id="statement"
+              rows="2"
+              class="p-create-form__statement-field"
+            ></textarea>
+            {% if form.statement.errors %}
+            <ul class="p-create-form__field-helper-list">
+              {% for error in form.statement.errors %}
+              <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </fieldset>
+          <fieldset class="p-create-form__fieldset-item">
+          <div class="p-create-form__option-caption">選択肢</div>
+          <div class="p-create-form__option-list">
+            <div class="p-create-form__option-list-header">解答</div>
+            <div class="p-create-form__option-item">
+              <div class="p-create-form__option-item-inner">
+                <input
+                  type="checkbox"
+                  name="is_option1_correct"
+                  id="is_option1_correct"
+                  class="p-create-form__checkbox-field"
+                />
+                <label
+                  for="is_option1_correct"
+                  class="p-create-form__checkbox-label"
+                  >1.</label
+                >
+                <input
+                  type="text"
+                  id="option1"
+                  name="option1"
+                  class="p-create-form__option-field"
+                />
+              </div>
+              {% if form.option1.errors or form.is_option1_correct.errors %}
+              <ul class="p-create-form__field-helper-list">
+                {% for error in form.option1.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+                {% for error in form.is_option1_correct.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <div class="p-create-form__option-item">
+              <div class="p-create-form__option-item-inner">
+                <input
+                  type="checkbox"
+                  name="is_option2_correct"
+                  id="is_option2_correct"
+                  class="p-create-form__checkbox-field"
+                />
+                <label
+                  for="is_option2_correct"
+                  class="p-create-form__checkbox-label"
+                  >2.</label
+                >
+                <input
+                  type="text"
+                  id="option2"
+                  name="option2"
+                  class="p-create-form__option-field"
+                />
+              </div>
+              {% if form.option2.errors or form.is_option2_correct.errors %}
+              <ul class="p-create-form__field-helper-list">
+                {% for error in form.option2.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+                {% for error in form.is_option2_correct.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <div class="p-create-form__option-item">
+              <div class="p-create-form__option-item-inner">
+                <input
+                  type="checkbox"
+                  name="is_option3_correct"
+                  id="is_option3_correct"
+                  class="p-create-form__checkbox-field"
+                />
+                <label
+                  for="is_option3_correct"
+                  class="p-create-form__checkbox-label"
+                  >3.</label
+                >
+                <input
+                  type="text"
+                  id="option3"
+                  name="option3"
+                  class="p-create-form__option-field"
+                />
+              </div>
+              {% if form.option3.errors or form.is_option3_correct.errors %}
+              <ul class="p-create-form__field-helper-list">
+                {% for error in form.option3.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+                {% for error in form.is_option3_correct.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <div class="p-create-form__option-item">
+              <div class="p-create-form__option-item-inner">
+                <input
+                  type="checkbox"
+                  name="is_option4_correct"
+                  id="is_option4_correct"
+                  class="p-create-form__checkbox-field"
+                />
+                <label
+                  for="is_option4_correct"
+                  class="p-create-form__checkbox-label"
+                  >4.</label
+                >
+                <input
+                  type="text"
+                  id="option4"
+                  name="option4"
+                  class="p-create-form__option-field"
+                />
+              </div>
+              {% if form.option4.errors or form.is_option4_correct.errors %}
+              <ul class="p-create-form__field-helper-list">
+                {% for error in form.option4.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+                {% for error in form.is_option4_correct.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            <div class="p-create-form__option-item">
+              <div class="p-create-form__option-item-inner">
+                <input
+                  type="checkbox"
+                  name="is_option5_correct"
+                  id="is_option5_correct"
+                  class="p-create-form__checkbox-field"
+                />
+                <label
+                  for="is_option5_correct"
+                  class="p-create-form__checkbox-label"
+                  >5.</label
+                >
+                <input
+                  type="text"
+                  id="option5"
+                  name="option5"
+                  class="p-create-form__option-field"
+                />
+              </div>
+              {% if form.option5.errors or form.is_option5_correct.errors %}
+              <ul class="p-create-form__field-helper-list">
+                {% for error in form.option5.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+                {% for error in form.is_option5_correct.errors %}
+                <li class="p-create-form__field-helper-item p-create-form__field-helper-item--error">{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </fieldset>
+        </div>
+        <div class="p-create-form__submit-btn-container">
+          <button
+            type="submit"
+            class="c-btn-primary c-btn-primary--success p-create-form__submit-btn"
+          >
+            作成
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
